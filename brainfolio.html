@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Brainfolio – Marketplace for Startup Ideas & Patents</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Brainfolio is a marketplace to buy and sell startup ideas, prototypes, and patents with trust, NDAs, and secure payments.">
+  <style>
+    :root {
+      --primary: #4b6bfb;
+      --primary-dark: #3246b3;
+      --bg: #050816;
+      --card-bg: #0b1020;
+      --accent: #22c55e;
+      --light: #f9fafb;
+      --muted: #9ca3af;
+      --border: #1f2933;
+      --danger: #f97373;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #111827, #020617);
+      color: var(--light);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* NAVBAR */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(to bottom, rgba(3,7,18,0.9), rgba(3,7,18,0.4));
+      border-bottom: 1px solid rgba(55,65,81,0.4);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      font-size: 1.1rem;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: conic-gradient(from 210deg, #4b6bfb, #22c55e, #f97316, #4b6bfb);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      color: #0b1020;
+      font-weight: 800;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover {
+      color: var(--light);
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn {
+      padding: 0.55rem 1.2rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.18s ease-out;
+      background: transparent;
+      color: var(--light);
+    }
+
+    .btn-outline {
+      border-color: rgba(148,163,184,0.6);
+    }
+
+    .btn-outline:hover {
+      background: rgba(15,23,42,0.8);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      box-shadow: 0 10px 30px rgba(59,130,246,0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 40px rgba(59,130,246,0.55);
+    }
+
+    /* HERO */
+
+    main {
+      padding-bottom: 4rem;
+    }
+
+    .hero {
+      padding: 3.5rem 0 3rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.8);
+      border: 1px solid rgba(75,85,99,0.7);
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 1.3rem;
+    }
+
+    .badge-pill {
+      padding: 0.1rem 0.5rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      background: rgba(34,197,94,0.1);
+      color: var(--accent);
+      border: 1px solid rgba(34,197,94,0.4);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 4vw, 3.1rem);
+      line-height: 1.1;
+      margin-bottom: 1.1rem;
+    }
+
+    .gradient-text {
+      background: linear-gradient(120deg, #60a5fa, #a855f7, #22c55e);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 32rem;
+      margin-bottom: 1.6rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.9rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .hero-meta strong {
+      display: block;
+      color: var(--light);
+      font-size: 1rem;
+    }
+
+    .hero-card {
+      background: radial-gradient(circle at top left, rgba(59,130,246,0.35), transparent),
+                  radial-gradient(circle at bottom right, rgba(34,197,94,0.4), transparent),
+                  #020617;
+      border-radius: 1.5rem;
+      border: 1px solid rgba(75,85,99,0.8);
+      padding: 1.4rem;
+      box-shadow: 0 18px 50px rgba(15,23,42,0.9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pill {
+      display: inline-flex;
+      padding: 0.18rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      background: rgba(15,23,42,0.8);
+      border: 1px solid rgba(148,163,184,0.6);
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .ideas-grid {
+      margin-top: 0.7rem;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.65rem;
+      font-size: 0.72rem;
+    }
+
+    .idea-card {
+      background: rgba(15,23,42,0.9);
+      border-radius: 0.9rem;
+      border: 1px solid rgba(55,65,81,0.9);
+      padding: 0.6rem 0.65rem;
+    }
+
+    .idea-title {
+      font-size: 0.8rem;
+      margin-bottom: 0.1rem;
+    }
+
+    .idea-tag {
+      font-size: 0.65rem;
+      color: var(--muted);
+    }
+
+    .idea-meta-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.4rem;
+      font-size: 0.68rem;
+      color: var(--muted);
+    }
+
+    .idea-price {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .hero-floating {
+      position: absolute;
+      right: 1rem;
+      top: 1.2rem;
+      font-size: 0.68rem;
+      background: rgba(8,47,73,0.9);
+      border-radius: 999px;
+      padding: 0.35rem 0.7rem;
+      border: 1px solid rgba(56,189,248,0.8);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    /* SECTIONS */
+
+    section {
+      padding: 2.5rem 0;
+      scroll-margin-top: 70px;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 1.8rem;
+    }
+
+    .section-tag {
+      font-size: 0.75rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .section-sub {
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 32rem;
+      margin: 0 auto;
+    }
+
+    /* HOW IT WORKS */
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+      margin-top: 1.5rem;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      padding: 1rem;
+      font-size: 0.88rem;
+    }
+
+    .step-badge {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: rgba(59,130,246,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .step-title {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .step-list {
+      margin-top: 0.4rem;
+      padding-left: 1rem;
+      color: var(--muted);
+      font-size: 0.83rem;
+    }
+
+    .step-list li {
+      margin-bottom: 0.15rem;
+    }
+
+    /* TWO-COL SECTION */
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 1.6rem;
+      margin-top: 1.6rem;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border-radius: 1.3rem;
+      padding: 1.2rem;
+      border: 1px solid var(--border);
+    }
+
+    .feature-card h3 {
+      margin-bottom: 0.4rem;
+      font-size: 1.1rem;
+    }
+
+    .feature-card p {
+      font-size: 0.87rem;
+      color: var(--muted);
+      margin-bottom: 0.7rem;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.4rem;
+    }
+
+    .chip {
+      font-size: 0.75rem;
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.6);
+      color: var(--muted);
+    }
+
+    /* LISTINGS */
+
+    .cards-grid {
+      margin-top: 1.4rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.1rem;
+    }
+
+    .listing-card {
+      background: var(--card-bg);
+      border-radius: 1rem;
+      padding: 1rem;
+      border: 1px solid var(--border);
+      font-size: 0.87rem;
+    }
+
+    .listing-pill {
+      font-size: 0.7rem;
+      padding: 0.1rem 0.5rem;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.95);
+      border: 1px solid rgba(55,65,81,0.9);
+      display: inline-block;
+      margin-bottom: 0.4rem;
+    }
+
+    .listing-title {
+      font-size: 0.98rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .listing-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .listing-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      margin-top: 0.4rem;
+      color: var(--muted);
+    }
+
+    .listing-price {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* PRICING */
+
+    .pricing-wrapper {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 1.6rem;
+      margin-top: 1.5rem;
+    }
+
+    .pricing-note {
+      font-size: 0.86rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    .pricing-card {
+      background: linear-gradient(135deg, rgba(37,99,235,0.3), rgba(8,47,73,0.8));
+      border-radius: 1.4rem;
+      padding: 1.2rem;
+      border: 1px solid rgba(59,130,246,0.7);
+      box-shadow: 0 18px 45px rgba(15,23,42,0.9);
+    }
+
+    .pricing-card h3 {
+      margin-bottom: 0.3rem;
+    }
+
+    .price-tag {
+      font-size: 1.7rem;
+      font-weight: 700;
+      margin: 0.4rem 0;
+    }
+
+    .price-tag span {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .pricing-list {
+      margin-top: 0.6rem;
+      font-size: 0.85rem;
+      color: var(--light);
+    }
+
+    .pricing-list li {
+      margin-bottom: 0.25rem;
+    }
+
+    /* FAQ */
+
+    .faq-grid {
+      margin-top: 1.4rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      font-size: 0.85rem;
+    }
+
+    .faq-item {
+      background: var(--card-bg);
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      padding: 0.9rem 1rem;
+    }
+
+    .faq-item h3 {
+      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .faq-item p {
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    /* CTA STRIP */
+
+    .cta-strip {
+      margin-top: 2.2rem;
+      background: radial-gradient(circle at right, rgba(34,197,94,0.3), transparent),
+                  radial-gradient(circle at left, rgba(59,130,246,0.4), transparent),
+                  #020617;
+      border-radius: 1.6rem;
+      border: 1px solid rgba(75,85,99,0.7);
+      padding: 1.4rem 1.6rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .cta-strip h2 {
+      font-size: 1.25rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .cta-strip p {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid rgba(31,41,55,0.9);
+      padding: 1.4rem 0 2.2rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 2rem;
+    }
+
+    .footer-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+    }
+
+    .footer-links a:hover {
+      color: var(--light);
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .two-col,
+      .pricing-wrapper {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero {
+        padding-top: 2.4rem;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="logo">
+        <div class="logo-mark">BF</div>
+        <span>Brainfolio</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#how">How it works</a>
+        <a href="#innovators">For Innovators</a>
+        <a href="#buyers">For Buyers</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="nav-cta">
+        <button class="btn btn-outline">Sign in</button>
+        <button class="btn btn-primary">Get early access</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">
+            <span class="badge-pill">Private beta</span>
+            <span>Turn dormant ideas into active assets</span>
+          </div>
+          <h1>
+            The marketplace where
+            <span class="gradient-text">ideas, prototypes & patents</span>
+            get traded.
+          </h1>
+          <p>
+            Brainfolio connects innovators with founders, investors and companies.
+            List your startup idea or patent under NDA, get offers, and close
+            secure deals with escrow — all in one platform.
+          </p>
+          <div class="hero-cta">
+            <button class="btn btn-primary">Start as Innovator</button>
+            <button class="btn btn-outline">Start as Buyer</button>
+          </div>
+          <div class="hero-meta">
+            <div>
+              <strong>Post in under 5 minutes</strong>
+              Simple guided form with NDA-by-default.
+            </div>
+            <div>
+              <strong>Buyer pre-screening</strong>
+              Only verified buyers get full access.
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="hero-card">
+            <div class="hero-floating">
+              <span>🔒 NDA-first access</span>
+            </div>
+            <span class="pill">Live deal board · sample preview</span>
+            <h3 style="font-size: 0.95rem; margin-bottom: 0.2rem;">Today on Brainfolio</h3>
+            <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem;">
+              32 ideas under review · 9 patents matched with buyers · 3 deals closing this week
+            </p>
+
+            <div class="ideas-grid">
+              <div class="idea-card">
+                <div class="idea-title">Smart campus energy twin</div>
+                <div class="idea-tag">Filed patent · Climate & IoT</div>
+                <div class="idea-meta-row">
+                  <span class="idea-price">₹3.5L – sale</span>
+                  <span>Upfront + royalty</span>
+                </div>
+              </div>
+              <div class="idea-card">
+                <div class="idea-title">AI triage assistant</div>
+                <div class="idea-tag">Provisional · Healthtech SaaS</div>
+                <div class="idea-meta-row">
+                  <span class="idea-price">Licensing</span>
+                  <span>2.5% revenue share</span>
+                </div>
+              </div>
+              <div class="idea-card">
+                <div class="idea-title">Rural fintech stack</div>
+                <div class="idea-tag">No patent · playbook + UX</div>
+                <div class="idea-meta-row">
+                  <span class="idea-price">₹90K</span>
+                  <span>Playbook transfer</span>
+                </div>
+              </div>
+              <div class="idea-card">
+                <div class="idea-title">Cold-chain IoT lock</div>
+                <div class="idea-tag">Granted patent · Hardware</div>
+                <div class="idea-meta-row">
+                  <span class="idea-price">Negotiable</span>
+                  <span>Exclusive license</span>
+                </div>
+              </div>
+            </div>
+
+            <p style="font-size: 0.78rem; color: var(--muted); margin-top: 0.9rem;">
+              *Data shown is mock for preview. Production app will show real-time listings and
+              verified metrics.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">How it works</div>
+          <h2 class="section-title">Built for both innovators & buyers</h2>
+          <p class="section-sub">
+            A secure, structured flow from idea listing to deal closing. Brainfolio
+            is designed to protect IP while still enabling discovery.
+          </p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-badge">1</div>
+            <div class="step-title">List your idea or patent</div>
+            <p>
+              Add a high-level description, stage (idea, prototype, patent filed / granted),
+              and your preferred deal structure.
+            </p>
+            <ul class="step-list">
+              <li>⚙ Guided checklist for tech & business details</li>
+              <li>🔒 Sensitive info hidden behind NDA</li>
+              <li>📄 Option to upload patent / proof documents</li>
+            </ul>
+          </div>
+
+          <div class="step-card">
+            <div class="step-badge">2</div>
+            <div class="step-title">Buyers request access</div>
+            <p>
+              Verified founders, companies and investors can request deeper access to your
+              listing.
+            </p>
+            <ul class="step-list">
+              <li>✅ KYC & role-based verification</li>
+              <li>📝 One-click NDA signing</li>
+              <li>💬 Built-in chat & Q&A</li>
+            </ul>
+          </div>
+
+          <div class="step-card">
+            <div class="step-badge">3</div>
+            <div class="step-title">Negotiate & close safely</div>
+            <p>
+              Finalise terms (sale, equity, license, royalty) and use Brainfolio escrow to
+              protect both sides.
+            </p>
+            <ul class="step-list">
+              <li>💸 Escrow-based payment releases</li>
+              <li>🤝 Legal templates & workflows</li>
+              <li>📁 Transfer-of-rights documentation</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOR INNOVATORS / BUYERS -->
+    <section id="innovators">
+      <div class="container">
+        <div class="section-header" style="text-align:left; max-width:560px;">
+          <div class="section-tag">Why Brainfolio</div>
+          <h2 class="section-title">A home for serious innovation.</h2>
+          <p class="section-sub" style="margin-left:0;">
+            Whether you’re a student with a powerful idea or a company looking for the
+            next edge — Brainfolio makes IP deals feel natural.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <div class="feature-card">
+            <h3>For Innovators & Students</h3>
+            <p>
+              You focus on building and thinking. We help you convert your ideas into
+              tangible, trackable assets that buyers can understand and value.
+            </p>
+            <ul class="pricing-list">
+              <li>• Turn college projects into saleable IP</li>
+              <li>• Choose sale, equity, or royalty models</li>
+              <li>• Get matched with relevant vertical buyers</li>
+              <li>• Get optional patent help through partners</li>
+            </ul>
+            <div class="chip-row">
+              <div class="chip">College projects</div>
+              <div class="chip">Individual inventors</div>
+              <div class="chip">Research labs</div>
+            </div>
+          </div>
+
+          <div class="feature-card" id="buyers">
+            <h3>For Buyers & Companies</h3>
+            <p>
+              Source innovations faster than building from scratch. Qualified ideas,
+              structured details, and clean documentation you can act on.
+            </p>
+            <ul class="pricing-list">
+              <li>• Filter by domain, stage, geography and budget</li>
+              <li>• See tech stack, IP status, and market angle</li>
+              <li>• Run multiple parallel conversations with teams</li>
+              <li>• Build your own private watchlist</li>
+            </ul>
+            <div class="chip-row">
+              <div class="chip">Startups</div>
+              <div class="chip">SMEs</div>
+              <div class="chip">VC & angels</div>
+              <div class="chip">Innovation teams</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SAMPLE LISTINGS -->
+    <section>
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Sample board</div>
+          <h2 class="section-title">What a Brainfolio board can look like</h2>
+          <p class="section-sub">
+            These are example cards to show how ideas & patents might appear once the app
+            goes live.
+          </p>
+        </div>
+
+        <div class="cards-grid">
+          <div class="listing-card">
+            <span class="listing-pill">Climate & Energy · Patent filed</span>
+            <div class="listing-title">AI-based microgrid optimizer for campuses</div>
+            <p class="listing-desc">
+              Digital twin + reinforcement learning model for reducing energy cost by up to
+              18% for large universities & industrial parks.
+            </p>
+            <div class="listing-meta">
+              <span>Preferred: equity + licensing</span>
+              <span class="listing-price">Deal size: ₹5L–₹12L</span>
+            </div>
+          </div>
+
+          <div class="listing-card">
+            <span class="listing-pill">Healthtech · Provisional patent</span>
+            <div class="listing-title">Offline-first triage and vitals kiosk</div>
+            <p class="listing-desc">
+              Low-cost hardware + software triage booth designed for Tier-2/3 cities and
+              semi-rural clinics with patchy internet.
+            </p>
+            <div class="listing-meta">
+              <span>Preferred: exclusive license</span>
+              <span class="listing-price">Min. ₹8L upfront</span>
+            </div>
+          </div>
+
+          <div class="listing-card">
+            <span class="listing-pill">Fintech · No patent</span>
+            <div class="listing-title">Agent-led onboarding playbook for rural MSMEs</div>
+            <p class="listing-desc">
+              Playbook + flows + tested scripts that increased activation rate by 27% in a
+              pilot with 300+ merchants.
+            </p>
+            <div class="listing-meta">
+              <span>Preferred: full playbook sale</span>
+              <span class="listing-price">₹1.5L</span>
+            </div>
+          </div>
+
+          <div class="listing-card">
+            <span class="listing-pill">Hardware & IoT · Granted patent</span>
+            <div class="listing-title">Tamper-proof cold-chain lock with sensor mesh</div>
+            <p class="listing-desc">
+              Patent for modular lock hardware that integrates with existing fleets with
+              minimal retrofitting and supports multi-sensor mesh.
+            </p>
+            <div class="listing-meta">
+              <span>Preferred: mixed license + royalty</span>
+              <span class="listing-price">Negotiable</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Pricing & model</div>
+          <h2 class="section-title">Simple to start, aligned when you succeed</h2>
+          <p class="section-sub">
+            The actual pricing may evolve, but the core principle stays: Brainfolio only
+            wins when you do.
+          </p>
+        </div>
+
+        <div class="pricing-wrapper">
+          <div>
+            <h3 style="font-size:1.1rem; margin-bottom:0.4rem;">Launch phase (beta)</h3>
+            <p class="pricing-note">
+              During early access, we plan to keep Brainfolio free for innovators with a
+              small success fee on closed deals. This helps us learn fast while still
+              staying aligned with your outcomes.
+            </p>
+            <ul class="pricing-list" style="margin-top:0.8rem;">
+              <li>• ₹0 listing fee (limited slots)</li>
+              <li>• Platform fee only when your deal closes</li>
+              <li>• Optional add-ons for legal & patent help</li>
+              <li>• Volume and enterprise pricing for buyers</li>
+            </ul>
+          </div>
+
+          <div class="pricing-card">
+            <h3>Beta model (example)</h3>
+            <div class="price-tag">
+              5–8% <span>platform success fee on closed deals</span>
+            </div>
+            <ul class="pricing-list">
+              <li>• No fee to just browse and shortlist</li>
+              <li>• Escrow wallet and dispute support included</li>
+              <li>• Discounted pricing for student founders</li>
+              <li>• Early buyers get curated deal flow access</li>
+            </ul>
+            <div style="margin-top:1rem;">
+              <button class="btn btn-primary">Join beta waitlist</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">FAQ</div>
+          <h2 class="section-title">Questions you might be thinking about</h2>
+          <p class="section-sub">
+            This is not legal advice, but a product vision. The final app will have proper
+            legal review and updated terms.
+          </p>
+        </div>
+
+        <div class="faq-grid">
+          <div class="faq-item">
+            <h3>How do you protect my idea?</h3>
+            <p>
+              By default, sensitive details stay hidden. Buyers see only a high-level
+              teaser. Full details unlock only after a mutual NDA and basic verification.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Can I list if I don’t have a patent?</h3>
+            <p>
+              Yes. You can list as “no patent / provisional / in-process”. We’ll strongly
+              encourage provisional filing for high-value concepts and connect you to
+              partners.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Is Brainfolio only for India?</h3>
+            <p>
+              The first version will likely focus on India-based innovators and buyers,
+              but the architecture is designed to support cross-border deals over time.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3>How will payments work?</h3>
+            <p>
+              Our plan is to integrate a trusted payment gateway and escrow partner so
+              funds are held safely until both sides confirm transfer and documentation.
+            </p>
+          </div>
+        </div>
+
+        <!-- CTA STRIP -->
+        <div class="cta-strip">
+          <div>
+            <h2>Want to be part of the first Brainfolio cohort?</h2>
+            <p>
+              We’re building the first version with a small group of innovators and
+              early adopter buyers. Join in, give feedback, and shape the product.
+            </p>
+          </div>
+          <div>
+            <button class="btn btn-primary">Apply as Innovator</button>
+            <button class="btn btn-outline" style="margin-left:0.4rem;">Apply as Buyer</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-row">
+      <div>© <span id="year"></span> Brainfolio. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="#">Terms</a>
+        <a href="#">Privacy</a>
+        <a href="#">Contact</a>
+        <a href="#">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Auto year
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
